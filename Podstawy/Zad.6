@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#Zadanie 6
+#Łączenie w jeden, plików z listy umiesczonej w pliku o zadanej nazwie ($1)
+
+if [ $# -ne 1 ]
+then
+	echo "Niepoprawna ilość paramterów";
+	exit 1;
+fi
+
+if [ -f $1 ]
+then
+	for plik in `cat $1`
+	do
+		if [ -f $plik ]
+		then
+			echo "Nazwa pliku: $plik" >> nowy_plik;	
+			cat $plik >> nowy_plik
+		fi
+
+	done
+	
+	rm $1;
+	mv nowy_plik $1;
+else
+	echo "Nie ma takiego pliku - $1"
+	exit 1;
+fi
+ 

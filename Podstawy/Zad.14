@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#Zadanie 14
+#Zmienic date modyfikacje dla kazdego pliku z katalogu podanym w parametrze $1
+
+if [ $# -ne 1 ]
+then 
+	echo "Podano niepoprawną ilość parametrów";
+	exit 1;
+fi
+
+
+if [ -d $1 ]
+then
+	cd $1;
+	for plik in *
+	do
+		if [ -w $plik -a -f $plik ]
+		then
+			touch  $plik;
+		fi
+	done
+	echo "Pliki zostały zmodyfikowane";
+else
+	echo "Nie ma takiego katalogu";
+fi
