@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#Laboratorium 5
+#Zadanie 5
+
+
+clear
+
+
+zadanieE=$(ps aux | awk 'BEGIN{mostPROC=lessPROC=$1} {sumPROC[$1]+=1;}
+END {for (user in sumPROC){
+if(sumPROC[user]>sumPROC[mostPROC]){mostPROC=user;}
+	  if(sumPROC[lessPROC]>sumPROC[user]){lessPROC=user;}
+
+	      }          
+                print "Uzytkownik",mostPROC,"ma najwiecej uruchomionych procesow:",sumPROC[mostPROC],". Uzytkownik:",lessPROC,"ma najmniej uruchomionych procesow",sumPROC[lessPROC] }' );
+
+
+echo "Zadanie E"
+echo $zadanieE
+
+

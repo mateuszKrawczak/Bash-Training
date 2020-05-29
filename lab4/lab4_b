@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#Laboratorium 5
+#Zadanie 2
+
+
+clear
+
+
+zadanieB=$(ps aux | awk '  $11 ~ /usr/ { print "Uzytkownik",$1,"ma uruchomiony proces COMMAND:",$11 }');
+
+
+
+echo "Zadanie B";
+echo $zadanieB;
+echo
+

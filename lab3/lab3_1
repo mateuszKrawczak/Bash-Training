@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#Laboratorium 4
+#Zadanie 1
+
+
+clear
+
+if [ $# -ne 1 ]
+then
+        echo "Niepoprawna ilość argumentów";
+        exit 1;
+fi;
+
+if [ -d $1 ]
+then
+    	touch $1/testa;
+	touch $1/testb;
+	touch $1/testd;
+	touch $1/testc;
+	mkdir $1/tekst;
+	mkdir $1/tekst/tekst1;
+	touch $1/tekst/data1.txt
+	touch $1/tekst/data2.txt
+	touch $1/tekst/tekst1/data3.txt
+	touch $1/data4.txt
+	tree $1;
+else
+        echo "Nie ma takiego katalogu";
+        exit 1;
+fi;
+
+#zadanie a
+echo "Zadanie a"
+find $1 -type f -name '*test*'  -print | sort | cut -d / -f 2 | sed 's/.*\(....\)/\1/'
+
+
+
+#zadanie b
+echo "Zadanie b"
+find $1 -maxdepth 2  -type f -name '*.txt' -print | while read file
+do
+	echo $(realpath $file | tr '/' '|')
+	
+
+done
+
+#zadanie c
+echo "Zadanie c"
+find $1 -type f "(" -size -1k -o -mmin +1 ")" -print -exec rm -f "{}" \; 

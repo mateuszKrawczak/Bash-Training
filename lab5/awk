@@ -1,0 +1,30 @@
+#!/bin/bash
+#Laboratorium 6
+
+strona="https://en.wikipedia.org/wiki/Wikipedia:10,000_most_common_passwords"
+
+
+clear
+
+
+echo "Wszystkie hasła z top 100"
+wget -qO- $strona | awk 'BEGIN{ counter=0 } /<li>/  { split($1,array,"</li>");
+ if(counter<100){split(array[1],haslo,"<li>"); print haslo[2]; counter++;}} ' | tee result.txt
+echo ""
+#Zadanie A - same cyfry
+echo "zadanie A"
+echo ""
+cat result.txt | awk 'BEGIN{counter=0} /^[0-9]*$/ {counter++;} END{print "Jest",counter,"haseł złożonych z samych cyfr" }'
+echo ""
+
+echo "Zadanie B"
+#Zadanie B - same litery
+echo""
+cat result.txt | awk 'BEGIN{counter=0}/^[a-z]*$/ {counter++;}END{print "Jest",counter,"haseł złożonych z samych liter" } '
+echo""
+#Zadanie C
+echo "Zadanie C"
+echo ""
+#regex działa na stronie
+cat result.txt | awk 'BEGIN{counter=0} /^(\w)\1*$/ {counter++;} END{print "Jest",counter,"haseł złożonych z samych znakow" }'
+

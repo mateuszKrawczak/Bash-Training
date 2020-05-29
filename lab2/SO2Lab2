@@ -1,0 +1,74 @@
+#!/bin/bash
+
+#Laboratorium 3 - domkniecia
+
+
+clear
+
+if [ $# -ne 1 ]
+then
+	echo "Niepoprawna ilość argumentów";
+	exit 1;
+fi;
+
+if [ -d $1 ]
+then
+	for plik in $( ls $1 )
+	do
+		rm -r $1/$plik;
+	done
+
+else
+	echo "Nie ma takiego katalogu";
+	exit 1;
+fi;
+
+mkdir $1/A
+mkdir $1/A/B
+mkdir $1/C
+mkdir $1/C/D
+mkdir $1/C/D/E
+
+touch $1/A/plik1.txt
+echo "Test 1" >> $1/A/plik1.txt
+
+touch $1/A/B/plik2.txt
+echo "Test 2" >> $1/A/B/plik2.txt
+
+touch $1/C/plik3.txt
+echo "Test 3" >> $1/C/plik3.txt
+
+touch $1/C/D/E/plik4.txt
+echo "Test 4">> $1/C/D/E/plik4.txt
+
+link_bez_plik3=`realpath $1/C/plik3.txt`
+ln -s $link_bez_plik3 $1/A/link_bez_plik_plik3.txt
+
+link_bez_plik2=`realpath $1/A/B/plik2.txt`
+ln -s $link_bez_plik2 $1/C/link_bez_plik_plik2.txt
+
+ln -s ./plik1.txt $1/A/link_plik1.txt
+
+ln -s ../../C/plik3.txt $1/A/B/link_plik_plik3.txt
+
+ln -s ../../../A/B/plik2.txt $1/C/D/E/link_plik_plik2.txt
+
+#zad2
+
+#dowaizanie do plik3 bedzie dzialac poniewaz jest to sciezka bezwzgledna 
+#dowiazanie pliku1 nie bedzie dzialac poniewaz system bedzie myslał
+#że plik1 jest w katalogu E a tak nie jest
+cp -P $1/A/link_plik1.txt $1/C/D/E/
+cp -P $1/A/link_bez_plik_plik3.txt $1/C/D/E/
+
+#usuwanie pliku plik1
+plik_1_link=`realpath  $1/A/link_plik1.txt`
+rm $plik_1_link
+
+#wyswietlenie dowiazan do pliku 3 bez petli
+echo `realpath -s $1/A/link_bez_plik_plik3.txt`
+echo `realpath -s $1/A/B/link_plik_plik3.txt`
+echo `realpath -s $1/C/D/E/link_bez_plik_plik3.txt`
+
+
+

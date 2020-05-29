@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#Laboratorium 5
+#Zadanie 1
+
+
+clear
+
+zadanieD=$(ps aux | awk ' {sumPROC[$1]+=1} END {for (user in sumPROC){
+print "Użytkownik",user,"łącznie ma uruchomionych",sumPROC[user]
+ } }' );
+echo "Zadanie D"
+echo $zadanieD
+

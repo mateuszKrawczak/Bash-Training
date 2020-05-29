@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#Laboratorium 5
+#Zadanie 3
+
+
+clear
+
+zadanieC=$(ps aux | awk ' { sumCPU += $3 ; sumMEM+=$4 } END { print "Suma CPU:",sumCPU ,"Suma MEM:", sumMEM  }' );
+
+#top uaktualnia na bieząco procesy (odświeża wyniki) a ps to wynik w danej chwili nieinteraktywny
+echo "Zadanie C"
+echo $zadanieC
+

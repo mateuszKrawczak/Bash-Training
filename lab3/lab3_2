@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#Laboratorium 4
+#Zadanie 2
+
+
+clear
+
+if [ $# -ne 1 ]
+then
+        echo "Niepoprawna ilość argumentów";
+        exit 1;
+fi;
+
+if [ -d $1 ]
+then
+	touch $1/result.dat
+else
+        echo "Nie ma takiego katalogu";
+        exit 1;
+fi;
+
+find . -type f "(" -name "*.jpg" -or -name "*.png" ")" -print | while read file
+do
+	echo -n $( realpath $file ) >> $1/result.dat;
+	echo -n "|" >> $1/result.dat;
+	echo -n $( date +"%d.%m.%y" ) >> $1/result.dat;
+	echo -n "|" >> $1/result.dat;
+	echo  $( date +"%T" ) >> $1/result.dat;
+
+done

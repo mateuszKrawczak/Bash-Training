@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#Laboratorium 5
+#Zadanie A
+
+
+clear
+
+zadanieA=$(ps aux | awk  '$3<10 { print "Uzytkownik " $1 " ma uruchomiony proces o PID",
+$2,"- CPU =",$3,",MEM =",$4 "\n"; } '  );
+
+#zadanie a - bez nowej linii po kazdym zdaniu ale działa
+echo "Zadanie A"
+echo  $zadanieA;
+
